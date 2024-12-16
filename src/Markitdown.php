@@ -7,7 +7,9 @@ namespace Innobrain\Markitdown;
 use Illuminate\Process\PendingProcess;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Process;
+use Illuminate\Support\Str;
 use Innobrain\Markitdown\Exceptions\MarkitdownException;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class Markitdown
 {
@@ -39,16 +41,20 @@ class Markitdown
 
     public function convertString(string $content): string
     {
-        $processResult = $this->buildProcess()
-            ->command($this->executable)
-            ->input($content)
-            ->run();
+        $temporaryDirectory = (new TemporaryDirectory('ib_markitdown'))
+            ->deleteWhenDestroyed()
+            ->create();
 
-        if (! $processResult->successful()) {
-            throw MarkitdownException::processFailed($this->executable, $processResult->errorOutput());
+        $tempPath = $temporaryDirectory
+            ->path(Str::random(40).'.tmp');
+
+        try {
+            file_put_contents($tempPath, $content);
+
+            return $this->convert($tempPath);
+        } finally {
+            $temporaryDirectory->delete();
         }
-
-        return $processResult->output();
     }
 
     private function buildProcess(): PendingProcess
