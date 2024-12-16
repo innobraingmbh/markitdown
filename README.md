@@ -23,7 +23,9 @@ Install the markitdown package from pip.
 pip install markitdown
 ```
 
-⚡ Recommended way is to use `pipx`:
+You will need to have `markitdown` available as a binary in your command line.
+
+⚡ The recommended way to do this is to use `pipx`:
 
 On macOS:
 ```
@@ -39,13 +41,6 @@ After installling `pipx`, you can install `markitdown` with:
 pipx install markitdown
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="markitdown-migrations"
-php artisan migrate
-```
-
 ### Publishing things
 
 You can publish the config file with:
@@ -58,13 +53,8 @@ This is the contents of the published config file:
 
 ```php
 return [
+    'process_timeout' => 30,
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="markitdown-views"
 ```
 
 ## Usage
@@ -82,14 +72,6 @@ composer test
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
