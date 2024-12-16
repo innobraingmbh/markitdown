@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v0.1.1 - 2024-12-16
+
+### What's Changed
+
+* fix: make executable configurable by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/2
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v0.1.0...v0.1.1
+
 ## v0.1.0 - 2024-12-16
 
 ### What's Changed
