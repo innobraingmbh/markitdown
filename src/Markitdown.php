@@ -18,7 +18,7 @@ class Markitdown
     public function __construct()
     {
         $this->timeout = Config::integer('markitdown.process_timeout');
-        $this->executable = Config::string('markitdown.executable', 'markitdown');
+        $this->executable = Config::string('markitdown.executable');
     }
 
     /**
