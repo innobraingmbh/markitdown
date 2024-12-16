@@ -32,4 +32,18 @@ class Markitdown
 
         return $processResult->output();
     }
+
+    public function convertString(string $content): string
+    {
+        $processResult = Process::timeout($this->timeout)
+            ->command(['markitdown'])
+            ->input($content)
+            ->run();
+
+        if (! $processResult->successful()) {
+            throw MarkitdownException::processFailed('markitdown', $processResult->output());
+        }
+
+        return $processResult->output();
+    }
 }
