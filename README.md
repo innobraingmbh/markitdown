@@ -53,7 +53,16 @@ This is the contents of the published config file:
 
 ```php
 return [
-    'process_timeout' => 30,
+    /*
+     * Use this to set the timeout for the process. Default is 30 seconds.
+     */
+    'process_timeout' => env('MARKITDOWN_PROCESS_TIMEOUT', 30),
+
+    /*
+     * Use this to set the path to the markitdown executable. If not set,
+     * the binary will be searched in the PATH.
+     */
+    'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
 ];
 ```
 
