@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v0.1.2 - 2024-12-16
+
+### What's Changed
+
+* fix: correct error output by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/3
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v0.1.1...v0.1.2
+
 ## v0.1.1 - 2024-12-16
 
 ### What's Changed
