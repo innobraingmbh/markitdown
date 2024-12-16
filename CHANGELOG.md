@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v1.0.0 - 2024-12-16
+
+### What's Changed
+
+* feat!: php-fpm runtimes should now work as intended & corrected naming by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/6
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v0.1.4...v1.0.0
+
 ## v0.1.4 - 2024-12-16
 
 ### What's Changed
