@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v1.0.1 - 2024-12-16
+
+### What's Changed
+
+* fix: move tmp dir to `storage/app/private/markitdown_tmp` by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/7
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v1.0.0...v1.0.1
+
 ## v1.0.0 - 2024-12-16
 
 ### What's Changed
