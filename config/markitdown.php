@@ -23,4 +23,10 @@ return [
     'system' => [
         'path' => env('MARKITDOWN_SYSTEM_PATH', ''),
     ],
+
+    /*
+     * The path where temporary files will be stored. This directory must be writable
+     * by the web server. Defaults to storage/app/private/markitdown_tmp
+     */
+    'temporary_directory' => env('MARKITDOWN_TEMPORARY_DIRECTORY', storage_path('app/private/markitdown_tmp')),
 ];

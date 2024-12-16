@@ -20,11 +20,14 @@ class Markitdown
 
     private string $path;
 
+    private readonly string $temporaryDirectory;
+
     public function __construct()
     {
         $this->timeout = Config::integer('markitdown.process_timeout');
         $this->executable = Config::string('markitdown.executable');
         $this->path = Config::string('markitdown.system.path');
+        $this->temporaryDirectory = Config::string('markitdown.temporary_directory');
 
         if ($this->path === '') {
             /* Note that this fallback will only work in your console.
@@ -60,8 +63,9 @@ class Markitdown
      */
     public function convertFile(string $content, string $extension): string
     {
-        $temporaryDirectory = (new TemporaryDirectory('ib_markitdown'))
+        $temporaryDirectory = (new TemporaryDirectory($this->temporaryDirectory))
             ->deleteWhenDestroyed()
+            ->force()
             ->create();
 
         $tempPath = $temporaryDirectory
