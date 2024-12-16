@@ -9,27 +9,39 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Str;
 use Innobrain\Markitdown\Exceptions\MarkitdownException;
+use Spatie\TemporaryDirectory\Exceptions\PathAlreadyExists;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 
 class Markitdown
 {
-    private int $timeout = 30;
+    private readonly int $timeout;
 
-    private string $executable = 'markitdown';
+    private readonly string $executable;
+
+    private string $path;
 
     public function __construct()
     {
         $this->timeout = Config::integer('markitdown.process_timeout');
         $this->executable = Config::string('markitdown.executable');
+        $this->path = Config::string('markitdown.system.path');
+
+        if ($this->path === '') {
+            /* Note that this fallback will only work in your console.
+             * When running in a web server, you should set MARKITDOWN_SYSTEM_PATH
+             * with a place where the markitdown executable is located.
+             */
+            $this->path = getenv('PATH') ?: '/';
+        }
     }
 
     /**
      * @throws MarkitdownException
      */
-    public function convert(string $filename): string
+    public function convert(string $filePath): string
     {
         $processResult = $this->buildProcess()
-            ->command([$this->executable, $filename])
+            ->command([$this->executable, $filePath])
             ->run();
 
         if (! $processResult->successful()) {
@@ -39,14 +51,21 @@ class Markitdown
         return $processResult->output();
     }
 
-    public function convertString(string $content): string
+    /**
+     * @param  string  $content  The content of the file to be converted
+     * @param  string  $extension  The extension of the file to be converted, including the dot (e.g. '.docx')
+     *
+     * @throws MarkitdownException
+     * @throws PathAlreadyExists
+     */
+    public function convertFile(string $content, string $extension): string
     {
         $temporaryDirectory = (new TemporaryDirectory('ib_markitdown'))
             ->deleteWhenDestroyed()
             ->create();
 
         $tempPath = $temporaryDirectory
-            ->path(Str::random(40).'.tmp');
+            ->path(Str::random(40).$extension);
 
         try {
             file_put_contents($tempPath, $content);
@@ -61,8 +80,7 @@ class Markitdown
     {
         return Process::timeout($this->timeout)
             ->env([
-                'PATH' => getenv('PATH'),
-                'HOME' => getenv('HOME'),
+                'PATH' => $this->path,
             ])
             ->tty(false);
     }
