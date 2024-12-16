@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Innobrain\Markitdown\Exceptions\MarkitdownException;
 use Innobrain\Markitdown\Facades\Markitdown;
 
 it('can execute markitdown', function (): void {
@@ -21,3 +22,7 @@ it('can convert from string', function (): void {
 
     expect($conv)->toMatchSnapshot();
 });
+
+it('throws exception with error output when process fails', function (): void {
+    Markitdown::convert('non_existent_file.docx');
+})->throws(MarkitdownException::class, 'The command `markitdown` failed with output: Traceback (most recent call last):');
