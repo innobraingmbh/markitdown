@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v0.1.3 - 2024-12-16
+
+### What's Changed
+
+* Fix/missing env vars by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/4
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v0.1.2...v0.1.3
+
 ## v0.1.2 - 2024-12-16
 
 ### What's Changed
