@@ -31,7 +31,7 @@ class Markitdown
             ->run();
 
         if (! $processResult->successful()) {
-            throw MarkitdownException::processFailed('markitdown', $processResult->errorOutput());
+            throw MarkitdownException::processFailed($this->executable, $processResult->errorOutput());
         }
 
         return $processResult->output();
@@ -45,7 +45,7 @@ class Markitdown
             ->run();
 
         if (! $processResult->successful()) {
-            throw MarkitdownException::processFailed('markitdown', $processResult->errorOutput());
+            throw MarkitdownException::processFailed($this->executable, $processResult->errorOutput());
         }
 
         return $processResult->output();
