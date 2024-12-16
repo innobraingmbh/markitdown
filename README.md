@@ -1,8 +1,8 @@
 # Laravel bindings for markitdown.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/innobrain/markitdown.svg?style=flat-square)](https://packagist.org/packages/innobrain/markitdown)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/innobrain/markitdown/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/innobrain/markitdown/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/innobrain/markitdown/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/innobrain/markitdown/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/innobraingmbh/markitdown/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/innobraingmbh/markitdown/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/innobraingmbh/markitdown/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/innobraingmbh/markitdown/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/innobrain/markitdown.svg?style=flat-square)](https://packagist.org/packages/innobrain/markitdown)
 
 Laravel bindings for markitdown.
