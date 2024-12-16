@@ -60,7 +60,12 @@ return [
 ## Usage
 
 ```php
+// convert a file:
 $markdown = \Innobrain\Markitdown\Facades\Markitdown::convert('/path/to/file.docx');
+
+// or convert a file you already have in memory:
+$file = file_get_contents('/path/to/file.docx');
+$markdown = \Innobrain\Markitdown\Facades\Markitdown::convertString($file);
 ```
 
 ## Testing
