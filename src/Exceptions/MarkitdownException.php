@@ -9,8 +9,8 @@ use Throwable;
 
 class MarkitdownException extends Exception
 {
-    public static function processFailed(string $command, string $output, ?Throwable $previous = null): self
+    public static function processFailed(string $command, string $output, ?Throwable $throwable = null): self
     {
-        return new self("The command `{$command}` failed with output: {$output}", previous: $previous);
+        return new self("The command `{$command}` failed with output: {$output}", previous: $throwable);
     }
 }

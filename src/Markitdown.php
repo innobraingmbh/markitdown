@@ -12,9 +12,12 @@ class Markitdown
 {
     private int $timeout = 30;
 
+    private string $executable = 'markitdown';
+
     public function __construct()
     {
         $this->timeout = Config::integer('markitdown.process_timeout');
+        $this->executable = Config::string('markitdown.executable', 'markitdown');
     }
 
     /**
@@ -23,7 +26,7 @@ class Markitdown
     public function convert(string $filename): string
     {
         $processResult = Process::timeout($this->timeout)
-            ->command(['markitdown', $filename])
+            ->command([$this->executable, $filename])
             ->run();
 
         if (! $processResult->successful()) {
@@ -36,7 +39,7 @@ class Markitdown
     public function convertString(string $content): string
     {
         $processResult = Process::timeout($this->timeout)
-            ->command(['markitdown'])
+            ->command($this->executable)
             ->input($content)
             ->run();
 
