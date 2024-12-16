@@ -22,14 +22,14 @@ class Markitdown
      */
     public function convert(string $filename): string
     {
-        $result = Process::timeout($this->timeout)
+        $processResult = Process::timeout($this->timeout)
             ->command(['markitdown', $filename])
             ->run();
 
-        if (! $result->successful()) {
-            throw MarkitdownException::processFailed('markitdown', $result->output());
+        if (! $processResult->successful()) {
+            throw MarkitdownException::processFailed('markitdown', $processResult->output());
         }
 
-        return $result->output();
+        return $processResult->output();
     }
 }

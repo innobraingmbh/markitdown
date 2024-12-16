@@ -7,14 +7,17 @@ namespace Innobrain\Markitdown\Tests;
 use Illuminate\Support\Facades\Config;
 use Innobrain\Markitdown\MarkitdownServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Override;
 
 class TestCase extends Orchestra
 {
+    #[Override]
     protected function setUp(): void
     {
         parent::setUp();
     }
 
+    #[Override]
     protected function getPackageProviders($app)
     {
         return [
@@ -22,6 +25,7 @@ class TestCase extends Orchestra
         ];
     }
 
+    #[Override]
     public function getEnvironmentSetUp($app)
     {
         Config::set('markitdown.process_timeout', 30);

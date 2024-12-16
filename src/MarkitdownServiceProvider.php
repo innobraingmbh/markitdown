@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Innobrain\Markitdown;
 
 use Innobrain\Markitdown\Commands\MarkitdownCommand;
+use Override;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class MarkitdownServiceProvider extends PackageServiceProvider
 {
+    #[Override]
     public function configurePackage(Package $package): void
     {
         /*

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use function Pest\Laravel\artisan;
 
-it('works', function () {
+it('works', function (): void {
     $out = artisan('markitdown:convert', [
         'filename' => __DIR__.'/../Stubs/Take Notes.docx',
     ]);
@@ -12,7 +12,7 @@ it('works', function () {
     $out->assertSuccessful();
 });
 
-it('doesn\'t work with missing filename', function () {
+it('doesn\'t work with missing filename', function (): void {
     $out = artisan('markitdown:convert');
 
     $out->assertFailed();
