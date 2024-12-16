@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v0.1.4 - 2024-12-16
+
+### What's Changed
+
+* fix: use tmp files for in memory files by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/5
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v0.1.3...v0.1.4
+
 ## v0.1.3 - 2024-12-16
 
 ### What's Changed
