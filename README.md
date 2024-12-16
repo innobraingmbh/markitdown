@@ -41,6 +41,26 @@ After installling `pipx`, you can install `markitdown` with:
 pipx install markitdown
 ```
 
+Now, set the path to the `markitdown` executable in your `.env` file. You can retrieve the path with:
+```bash
+which markitdown
+```
+
+```bash
+MARKITDOWN_EXECUTABLE=/path/to/markitdown
+```
+
+Also, when running the script anywhere but the console, you need to set the PATH, as php-fpm does not have
+access to the PATH variable. You can do this by adding the following to your `.env` file:
+
+```bash
+echo $PATH
+```
+
+```bash
+MARKITDOWN_SYSTEM_PATH=<your path>
+```
+
 ### Publishing things
 
 You can publish the config file with:

@@ -18,7 +18,7 @@ it('can convert excel', function (): void {
 });
 
 it('can convert from string', function (): void {
-    $conv = Markitdown::convertString(file_get_contents(__DIR__.'/Stubs/Take Notes.docx'));
+    $conv = Markitdown::convertFile(file_get_contents(__DIR__.'/Stubs/Take Notes.docx'), '.docx');
 
     expect($conv)->toMatchSnapshot();
 });
