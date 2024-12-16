@@ -51,5 +51,12 @@ jobs:
       - name: List Installed Dependencies
         run: composer show -D
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.13
+
+      - name: Install markitdown
+        run: pipx install markitdown
+
       - name: Execute tests
         run: vendor/bin/pest --ci
