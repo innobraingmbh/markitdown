@@ -18,24 +18,22 @@ class Markitdown
 
     private readonly string $executable;
 
-    private string $path;
+    private readonly string $path;
 
     private readonly string $temporaryDirectory;
 
+    /**
+     * @throws MarkitdownException
+     */
     public function __construct()
     {
         $this->timeout = Config::integer('markitdown.process_timeout');
-        $this->executable = Config::string('markitdown.executable');
-        $this->path = Config::string('markitdown.system.path');
-        $this->temporaryDirectory = Config::string('markitdown.temporary_directory');
 
-        if ($this->path === '') {
-            /* Note that this fallback will only work in your console.
-             * When running in a web server, you should set MARKITDOWN_SYSTEM_PATH
-             * with a place where the markitdown executable is located.
-             */
-            $this->path = getenv('PATH') ?: '/';
-        }
+        $this->executable = $this->getPathToExecutable();
+
+        $this->path = $this->getPath();
+
+        $this->temporaryDirectory = Config::string('markitdown.temporary_directory');
     }
 
     /**
@@ -91,5 +89,34 @@ class Markitdown
                 'PATH' => $this->path,
             ])
             ->tty(false);
+    }
+
+    private function getPathToExecutable(): string
+    {
+        if (Config::boolean('markitdown.use_venv_package')) {
+            $path = realpath(__DIR__.'/../python/venv/bin/markitdown');
+
+            if ($path === false) {
+                throw new MarkitdownException('The path to the python script is invalid');
+            }
+
+            return $path;
+        }
+
+        return Config::string('markitdown.executable');
+    }
+
+    private function getPath(): string
+    {
+        $path = Config::string('markitdown.system.path');
+        if ($path === '') {
+            /* Note that this fallback will only work in your console.
+             * When running in a web server, you should set MARKITDOWN_SYSTEM_PATH
+             * with a place where the markitdown executable is located.
+             */
+            return getenv('PATH') ?: '/';
+        }
+
+        return $path;
     }
 }

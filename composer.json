@@ -48,6 +48,12 @@
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
+        "post-install-cmd": [
+            "./setup-python-env.sh"
+        ],
+        "post-update-cmd": [
+            "./setup-python-env.sh"
+        ],
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
