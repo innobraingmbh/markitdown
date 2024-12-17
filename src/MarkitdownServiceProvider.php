@@ -48,25 +48,27 @@ class MarkitdownServiceProvider extends PackageServiceProvider
             return;
         }
 
-        $this->writeOutput("\n🔧 Setting up Markitdown virtual environment...");
+        $this->writeOutput("\n🔧 Setting up Markitdown virtual environment...\n");
 
         // Make the script executable
         chmod($scriptPath, 0755);
 
         // Run the setup script
-        $process = Process::path(dirname($scriptPath))
+        $result = Process::path(dirname($scriptPath))
             ->command($scriptPath)
             ->tty(false)
-            ->timeout(300);
+            ->timeout(300)
+            ->run();
 
-        $process->run(function (string $type, string $output): void {
-            $this->writeOutput($output);
-        });
+        // Output the process output
+        $this->writeOutput($result->output());
 
-        if ($process->successful()) {
+        if ($result->successful()) {
             $this->writeOutput("\n✅ Markitdown virtual environment setup complete!\n");
         } else {
-            $this->writeOutput("\n❌ Markitdown virtual environment setup failed. Please check the error messages above.\n");
+            $this->writeOutput("\n❌ Markitdown virtual environment setup failed. Error output:\n");
+            $this->writeOutput($result->errorOutput());
+            $this->writeOutput("\n");
         }
     }
 
