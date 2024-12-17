@@ -49,7 +49,8 @@ fi
 # Install Python dependencies
 log "Installing Python dependencies..."
 if [ -f "requirements.txt" ]; then
-    venv/bin/python -m pip install -r requirements.txt || {
+    # Use pip's quiet mode and disable progress bar
+    venv/bin/python -m pip install -r requirements.txt --quiet --no-progress-bar || {
         log "Error: Failed to install dependencies"
         exit 1
     }
