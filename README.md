@@ -83,6 +83,21 @@ return [
      * the binary will be searched in the PATH.
      */
     'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
+
+    /*
+     * This is needed when you want to run markitdown in php-fpm. One dependency
+     * of markitdown requires PATH to be set. If you are running in a console,
+     * this is not needed.
+     */
+    'system' => [
+        'path' => env('MARKITDOWN_SYSTEM_PATH', ''),
+    ],
+
+    /*
+     * The path where temporary files will be stored. This directory must be writable
+     * by the web server. Defaults to storage/app/private/markitdown_tmp
+     */
+    'temporary_directory' => env('MARKITDOWN_TEMPORARY_DIRECTORY', storage_path('app/private/markitdown_tmp')),
 ];
 ```
 
@@ -94,7 +109,7 @@ $markdown = \Innobrain\Markitdown\Facades\Markitdown::convert('/path/to/file.doc
 
 // or convert a file you already have in memory:
 $file = file_get_contents('/path/to/file.docx');
-$markdown = \Innobrain\Markitdown\Facades\Markitdown::convertString($file);
+$markdown = \Innobrain\Markitdown\Facades\Markitdown::convertFile($file, '.docx');
 ```
 
 ## Testing
