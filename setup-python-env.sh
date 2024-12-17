@@ -49,11 +49,12 @@ fi
 # Install Python dependencies
 log "Installing Python dependencies..."
 if [ -f "requirements.txt" ]; then
-    # Use pip's quiet mode and disable progress bar
-    venv/bin/python -m pip install -r requirements.txt --quiet --no-progress-bar || {
+    # Capture both stdout and stderr
+    if ! output=$(venv/bin/python -m pip install -r requirements.txt -q 2>&1); then
         log "Error: Failed to install dependencies"
+        log "Pip output: $output"
         exit 1
-    }
+    fi
 else
     log "Warning: requirements.txt not found in $PYTHON_DIR"
     exit 1
