@@ -39,6 +39,9 @@ class Markitdown
     }
 
     /**
+     * @param  string  $filePath  Path to the file to be converted. Needs to be readable by the web server.
+     * @return string The converted content in markdown
+     *
      * @throws MarkitdownException
      */
     public function convert(string $filePath): string
@@ -57,6 +60,7 @@ class Markitdown
     /**
      * @param  string  $content  The content of the file to be converted
      * @param  string  $extension  The extension of the file to be converted, including the dot (e.g. '.docx')
+     * @return string The converted content in markdown
      *
      * @throws MarkitdownException
      * @throws PathAlreadyExists
