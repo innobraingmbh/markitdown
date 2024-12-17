@@ -15,7 +15,13 @@ You can install the package via composer:
 composer require innobrain/markitdown
 ```
 
-The package will automatically set up a Python virtual environment with the required dependencies during installation.
+After installing the package, make sure to publish the configuration file:
+
+```bash
+php artisan vendor:publish --tag="markitdown-config"
+```
+
+The package will automatically set up a Python virtual environment with the required dependencies during the Laravel package registration process.
 
 ### Alternative Installation Methods
 
@@ -69,15 +75,9 @@ echo $PATH
 MARKITDOWN_SYSTEM_PATH=<your path>
 ```
 
-### Publishing things
+## Configuration
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="markitdown-config"
-```
-
-This is the contents of the published config file:
+The package's configuration will be published to `config/markitdown.php`. Here are the available options:
 
 ```php
 return [
@@ -91,6 +91,11 @@ return [
      * the binary will be searched in the PATH.
      */
     'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
+
+    /*
+     * This will override the above setting and use the new locally installed package.
+     */
+    'use_venv_package' => env('MARKITDOWN_USE_VENV_PACKAGE', true),
 
     /*
      * This is needed when you want to run markitdown in php-fpm. One dependency
