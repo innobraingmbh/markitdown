@@ -14,8 +14,11 @@ return RectorConfig::configure()
     ->withPreparedSets(
         deadCode: true,
         codeQuality: true,
+        codingStyle: true,
+        privatization: true,
         naming: true,
+        instanceOf: true,
         earlyReturn: true,
         strictBooleans: true,
     )
-    ->withTypeCoverageLevel(5);
+    ->withTypeCoverageLevel(100);

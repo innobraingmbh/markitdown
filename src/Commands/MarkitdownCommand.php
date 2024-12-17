@@ -20,8 +20,8 @@ class MarkitdownCommand extends Command
 
         try {
             $output = Markitdown::convert($filename);
-        } catch (MarkitdownException $e) {
-            $this->error($e->getMessage());
+        } catch (MarkitdownException $markitdownException) {
+            $this->error($markitdownException->getMessage());
 
             return self::FAILURE;
         }

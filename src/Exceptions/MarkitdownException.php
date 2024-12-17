@@ -11,6 +11,6 @@ class MarkitdownException extends Exception
 {
     public static function processFailed(string $command, string $output, ?Throwable $throwable = null): self
     {
-        return new self("The command `{$command}` failed with output: {$output}", previous: $throwable);
+        return new self(sprintf('The command `%s` failed with output: %s', $command, $output), previous: $throwable);
     }
 }

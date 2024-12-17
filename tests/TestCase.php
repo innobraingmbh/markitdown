@@ -26,7 +26,7 @@ class TestCase extends Orchestra
     }
 
     #[Override]
-    public function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         Config::set('markitdown.process_timeout', 30);
     }

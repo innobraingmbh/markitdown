@@ -12,7 +12,7 @@ it('works', function (): void {
     $out->assertSuccessful();
 });
 
-it('doesn\'t work with missing filename', function (): void {
+it("doesn't work with missing filename", function (): void {
     $out = artisan('markitdown:convert');
 
     $out->assertFailed();
