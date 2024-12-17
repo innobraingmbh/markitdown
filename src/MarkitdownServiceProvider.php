@@ -34,7 +34,7 @@ class MarkitdownServiceProvider extends PackageServiceProvider
 
     private function setupVirtualEnvironment(): void
     {
-        $scriptPath = realpath(__DIR__ . '/../setup-python-env.sh');
+        $scriptPath = realpath(__DIR__.'/../setup-python-env.sh');
 
         if ($scriptPath === false) {
             return;
