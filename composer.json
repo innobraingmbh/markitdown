@@ -75,6 +75,14 @@
             "aliases": {
                 "Markitdown": "Innobrain\\Markitdown\\Facades\\Markitdown"
             }
+        },
+        "hooks": {
+            "post-install-cmd": [
+                "./setup-python-env.sh"
+            ],
+            "post-update-cmd": [
+                "./setup-python-env.sh"
+            ]
         }
     },
     "minimum-stability": "dev",

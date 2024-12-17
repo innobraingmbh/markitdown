@@ -15,33 +15,41 @@ You can install the package via composer:
 composer require innobrain/markitdown
 ```
 
-### Install Markitdown
+The package will automatically set up a Python virtual environment with the required dependencies during installation.
 
-Install the markitdown package from pip.
+### Alternative Installation Methods
+
+If you prefer not to use the built-in virtual environment, you can disable it in your `.env` file:
+
+```bash
+MARKITDOWN_USE_VENV_PACKAGE=false
+```
+
+Then install markitdown manually using one of these methods:
+
+#### Using pip directly:
 
 ```bash
 pip install markitdown
 ```
 
-You will need to have `markitdown` available as a binary in your command line.
-
-⚡ The recommended way to do this is to use `pipx`:
+#### Using pipx (Recommended for manual installation):
 
 On macOS:
-```
+```bash
 brew install pipx
 pipx ensurepath
-sudo pipx ensurepath --global # optional to allow pipx actions with --global argument``
+sudo pipx ensurepath --global # optional to allow pipx actions with --global argument
 ```
 
 Or see how to install on [other platforms](https://github.com/pypa/pipx).
-After installling `pipx`, you can install `markitdown` with:
+After installing `pipx`, you can install `markitdown` with:
 
 ```bash
 pipx install markitdown
 ```
 
-Now, set the path to the `markitdown` executable in your `.env` file. You can retrieve the path with:
+When not using the built-in virtual environment, you'll need to set the path to the `markitdown` executable in your `.env` file. You can retrieve the path with:
 ```bash
 which markitdown
 ```
