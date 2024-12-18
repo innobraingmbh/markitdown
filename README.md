@@ -9,19 +9,28 @@ Laravel bindings for markitdown.
 
 ## Installation
 
-You can install the package via composer:
+1. Install the package via composer:
 
 ```bash
 composer require innobrain/markitdown
 ```
 
-After installing the package, make sure to publish the configuration file:
+2. Publish the configuration file:
 
 ```bash
 php artisan vendor:publish --tag="markitdown-config"
 ```
 
-The package will automatically set up a Python virtual environment with the required dependencies during the Laravel package registration process.
+3. Run the installation command:
+
+```bash
+php artisan markitdown:install
+```
+
+This will:
+- Set up a Python virtual environment with the required dependencies
+- Add the setup script to your project's composer.json
+- Ensure the environment is kept up to date with future composer updates
 
 ### Alternative Installation Methods
 
@@ -66,10 +75,6 @@ MARKITDOWN_EXECUTABLE=/path/to/markitdown
 
 Also, when running the script anywhere but the console, you need to set the PATH, as php-fpm does not have
 access to the PATH variable. You can do this by adding the following to your `.env` file:
-
-```bash
-echo $PATH
-```
 
 ```bash
 MARKITDOWN_SYSTEM_PATH=<your path>

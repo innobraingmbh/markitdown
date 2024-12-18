@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Innobrain\Markitdown;
 
-use Illuminate\Support\Facades\Process;
+use Innobrain\Markitdown\Commands\InstallCommand;
 use Innobrain\Markitdown\Commands\MarkitdownCommand;
 use Override;
 use Spatie\LaravelPackageTools\Package;
@@ -12,8 +12,6 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class MarkitdownServiceProvider extends PackageServiceProvider
 {
-    private static bool $setupRun = false;
-
     #[Override]
     public function configurePackage(Package $package): void
     {
@@ -25,56 +23,6 @@ class MarkitdownServiceProvider extends PackageServiceProvider
         $package
             ->name('markitdown')
             ->hasConfigFile()
-            ->hasCommand(MarkitdownCommand::class);
-    }
-
-    #[Override]
-    public function packageRegistered(): void
-    {
-        if (! self::$setupRun) {
-            $this->setupVirtualEnvironment();
-            self::$setupRun = true;
-        }
-    }
-
-    private function setupVirtualEnvironment(): void
-    {
-        $scriptPath = realpath(__DIR__.'/../setup-python-env.sh');
-
-        if ($scriptPath === false || ! file_exists($scriptPath)) {
-            return;
-        }
-
-        $this->writeOutput("\n🔧 Setting up Markitdown virtual environment...");
-
-        // Make the script executable
-        chmod($scriptPath, 0755);
-
-        // Run the setup script
-        $pendingProcess = Process::path(dirname($scriptPath))
-            ->tty(false)
-            ->timeout(300);
-
-        $processResult = $pendingProcess->run(
-            $scriptPath,
-            output: function (string $type, string $output): void {
-                $this->writeOutput($output);
-            }
-        );
-
-        if ($processResult->successful()) {
-            $this->writeOutput("\n✅ Markitdown virtual environment setup complete!\n");
-        } else {
-            $this->writeOutput("\n❌ Markitdown setup failed. Error: ".$processResult->errorOutput()."\n");
-        }
-    }
-
-    private function writeOutput(string $message): void
-    {
-        if (PHP_SAPI === 'cli') {
-            fwrite(STDOUT, $message);
-        } else {
-            info('[Markitdown Setup] '.$message);
-        }
+            ->hasCommands([MarkitdownCommand::class, InstallCommand::class]);
     }
 }
