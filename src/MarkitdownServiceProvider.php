@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Innobrain\Markitdown;
 
+use Innobrain\Markitdown\Commands\InstallCommand;
 use Innobrain\Markitdown\Commands\MarkitdownCommand;
 use Override;
 use Spatie\LaravelPackageTools\Package;
@@ -22,6 +23,6 @@ class MarkitdownServiceProvider extends PackageServiceProvider
         $package
             ->name('markitdown')
             ->hasConfigFile()
-            ->hasCommand(MarkitdownCommand::class);
+            ->hasCommands([MarkitdownCommand::class, InstallCommand::class]);
     }
 }

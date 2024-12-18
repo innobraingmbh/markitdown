@@ -9,39 +9,62 @@ Laravel bindings for markitdown.
 
 ## Installation
 
-You can install the package via composer:
+1. Install the package via composer:
 
 ```bash
 composer require innobrain/markitdown
 ```
 
-### Install Markitdown
+2. Publish the configuration file:
 
-Install the markitdown package from pip.
+```bash
+php artisan vendor:publish --tag="markitdown-config"
+```
+
+3. Run the installation command:
+
+```bash
+php artisan markitdown:install
+```
+
+This will:
+- Set up a Python virtual environment with the required dependencies
+- Add the setup script to your project's composer.json
+- Ensure the environment is kept up to date with future composer updates
+
+### Alternative Installation Methods
+
+If you prefer not to use the built-in virtual environment, you can disable it in your `.env` file:
+
+```bash
+MARKITDOWN_USE_VENV_PACKAGE=false
+```
+
+Then install markitdown manually using one of these methods:
+
+#### Using pip directly:
 
 ```bash
 pip install markitdown
 ```
 
-You will need to have `markitdown` available as a binary in your command line.
-
-⚡ The recommended way to do this is to use `pipx`:
+#### Using pipx (Recommended for manual installation):
 
 On macOS:
-```
+```bash
 brew install pipx
 pipx ensurepath
-sudo pipx ensurepath --global # optional to allow pipx actions with --global argument``
+sudo pipx ensurepath --global # optional to allow pipx actions with --global argument
 ```
 
 Or see how to install on [other platforms](https://github.com/pypa/pipx).
-After installling `pipx`, you can install `markitdown` with:
+After installing `pipx`, you can install `markitdown` with:
 
 ```bash
 pipx install markitdown
 ```
 
-Now, set the path to the `markitdown` executable in your `.env` file. You can retrieve the path with:
+When not using the built-in virtual environment, you'll need to set the path to the `markitdown` executable in your `.env` file. You can retrieve the path with:
 ```bash
 which markitdown
 ```
@@ -54,22 +77,12 @@ Also, when running the script anywhere but the console, you need to set the PATH
 access to the PATH variable. You can do this by adding the following to your `.env` file:
 
 ```bash
-echo $PATH
-```
-
-```bash
 MARKITDOWN_SYSTEM_PATH=<your path>
 ```
 
-### Publishing things
+## Configuration
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="markitdown-config"
-```
-
-This is the contents of the published config file:
+The package's configuration will be published to `config/markitdown.php`. Here are the available options:
 
 ```php
 return [
@@ -83,6 +96,11 @@ return [
      * the binary will be searched in the PATH.
      */
     'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
+
+    /*
+     * This will override the above setting and use the new locally installed package.
+     */
+    'use_venv_package' => env('MARKITDOWN_USE_VENV_PACKAGE', true),
 
     /*
      * This is needed when you want to run markitdown in php-fpm. One dependency

@@ -18,3 +18,7 @@
 /UPGRADING.md       export-ignore
 /phpstan.neon.dist  export-ignore
 /phpstan-baseline.neon  export-ignore
+
+# Ensure these files are included
+/setup-python-env.sh export-keep
+/python/requirements.txt export-keep

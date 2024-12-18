@@ -11,9 +11,15 @@ return [
 
     /*
      * Use this to set the path to the markitdown executable. If not set,
-     * the binary will be searched in the PATH.
+     * the binary will be searched in the PATH. Will be ignored
+     * if use_venv_package is set to true.
      */
     'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
+
+    /*
+     * This will override the above setting and use the new locally installed package.
+     */
+    'use_venv_package' => env('MARKITDOWN_USE_VENV_PACKAGE', true),
 
     /*
      * This is needed when you want to run markitdown in php-fpm. One dependency

@@ -48,6 +48,9 @@
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
+        "setup-python-env": [
+            "./setup-python-env.sh"
+        ],
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
         "test": "vendor/bin/pest",
@@ -69,6 +72,14 @@
             "aliases": {
                 "Markitdown": "Innobrain\\Markitdown\\Facades\\Markitdown"
             }
+        },
+        "hooks": {
+            "post-install-cmd": [
+                "./setup-python-env.sh"
+            ],
+            "post-update-cmd": [
+                "./setup-python-env.sh"
+            ]
         }
     },
     "minimum-stability": "dev",
