@@ -27,7 +27,31 @@ class InstallCommand extends Command
         }
 
         // Read composer.json
-        $composer = json_decode(file_get_contents($composerPath), true);
+        $composerJson = file_get_contents($composerPath);
+
+        if ($composerJson === false) {
+            $this->components->error('Failed to read composer.json.');
+
+            return self::FAILURE;
+        }
+
+        /** @var mixed $composer */
+        $composer = json_decode($composerJson, true);
+
+        if (! is_array($composer)) {
+            $this->components->error('Invalid composer.json format.');
+
+            return self::FAILURE;
+        }
+
+        /** @var array<string, mixed> $composer */
+
+        // Initialize scripts array if it doesn't exist
+        if (! isset($composer['scripts'])) {
+            $composer['scripts'] = [];
+        }
+
+        /** @var array<string, array<string, mixed>> $composer */
 
         // Add our script to the project's composer.json scripts
         $scriptPath = './vendor/innobrain/markitdown/setup-python-env.sh';
@@ -38,55 +62,41 @@ class InstallCommand extends Command
             $composer['scripts']['post-autoload-dump'] = [];
         }
 
+        /** @var array<string, array<int|string, string|array<string>>> $composer */
+
+        // Ensure post-autoload-dump is an array
         if (! is_array($composer['scripts']['post-autoload-dump'])) {
             $composer['scripts']['post-autoload-dump'] = [$composer['scripts']['post-autoload-dump']];
         }
 
-        if (! in_array($scriptPath, $composer['scripts']['post-autoload-dump'])) {
+        if (! in_array($scriptPath, $composer['scripts']['post-autoload-dump'], true)) {
             $composer['scripts']['post-autoload-dump'][] = $scriptPath;
-            $scriptAdded = true;
-        }
-
-        // Add to post-install-cmd
-        if (! isset($composer['scripts']['post-install-cmd'])) {
-            $composer['scripts']['post-install-cmd'] = [];
-        }
-
-        if (! is_array($composer['scripts']['post-install-cmd'])) {
-            $composer['scripts']['post-install-cmd'] = [$composer['scripts']['post-install-cmd']];
-        }
-
-        if (! in_array($scriptPath, $composer['scripts']['post-install-cmd'])) {
-            $composer['scripts']['post-install-cmd'][] = $scriptPath;
-            $scriptAdded = true;
-        }
-
-        // Add to post-update-cmd
-        if (! isset($composer['scripts']['post-update-cmd'])) {
-            $composer['scripts']['post-update-cmd'] = [];
-        }
-
-        if (! is_array($composer['scripts']['post-update-cmd'])) {
-            $composer['scripts']['post-update-cmd'] = [$composer['scripts']['post-update-cmd']];
-        }
-
-        if (! in_array($scriptPath, $composer['scripts']['post-update-cmd'])) {
-            $composer['scripts']['post-update-cmd'][] = $scriptPath;
             $scriptAdded = true;
         }
 
         if ($scriptAdded) {
             // Write back to composer.json with proper formatting
-            file_put_contents(
-                $composerPath,
-                str(json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))
-                    ->append(PHP_EOL)
-                    ->replace(
-                        search: "    \"keywords\": [\n        \"laravel\",\n        \"framework\"\n    ],",
-                        replace: '    "keywords": ["laravel", "framework"],'
-                    )
-                    ->toString()
-            );
+            $encodedJson = json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+            if ($encodedJson === false) {
+                $this->components->error('Failed to encode composer.json.');
+
+                return self::FAILURE;
+            }
+
+            $formattedJson = str($encodedJson)
+                ->append(PHP_EOL)
+                ->replace(
+                    search: "    \"keywords\": [\n        \"laravel\",\n        \"framework\"\n    ],",
+                    replace: '    "keywords": ["laravel", "framework"],'
+                )
+                ->toString();
+
+            if (in_array(file_put_contents($composerPath, $formattedJson), [0, false], true)) {
+                $this->components->error('Failed to write to composer.json.');
+
+                return self::FAILURE;
+            }
 
             $this->components->info('Added Markitdown setup script to composer.json');
         }
@@ -103,7 +113,11 @@ class InstallCommand extends Command
         $this->components->info('Setting up Python virtual environment...');
 
         // Make the script executable
-        chmod($scriptPath, 0755);
+        if (! chmod($scriptPath, 0755)) {
+            $this->components->error('Failed to make setup script executable.');
+
+            return self::FAILURE;
+        }
 
         // Run the setup script
         $pendingProcess = Process::path(dirname($scriptPath))
