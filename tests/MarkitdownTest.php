@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
+use Innobrain\Markitdown\Commands\InstallCommand;
 use Innobrain\Markitdown\Exceptions\MarkitdownException;
 use Innobrain\Markitdown\Facades\Markitdown;
 
@@ -13,6 +15,9 @@ dataset('venv_configs', [
 
 it('can execute markitdown with different venv configs', function (bool $useVenv): void {
     Config::set('markitdown.use_venv_package', $useVenv);
+    if ($useVenv) {
+        Artisan::call(InstallCommand::class);
+    }
 
     $conv = Markitdown::convert(__DIR__.'/Stubs/Take Notes.docx');
 
@@ -21,6 +26,9 @@ it('can execute markitdown with different venv configs', function (bool $useVenv
 
 it('can convert excel with different venv configs', function (bool $useVenv): void {
     Config::set('markitdown.use_venv_package', $useVenv);
+    if ($useVenv) {
+        Artisan::call(InstallCommand::class);
+    }
 
     $conv = Markitdown::convert(__DIR__.'/Stubs/Make a List1.xlsx');
 
@@ -29,6 +37,9 @@ it('can convert excel with different venv configs', function (bool $useVenv): vo
 
 it('can convert from string with different venv configs', function (bool $useVenv): void {
     Config::set('markitdown.use_venv_package', $useVenv);
+    if ($useVenv) {
+        Artisan::call(InstallCommand::class);
+    }
 
     $conv = Markitdown::convertFile(file_get_contents(__DIR__.'/Stubs/Take Notes.docx'), '.docx');
 
