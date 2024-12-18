@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v2.0.0 - 2024-12-18
+
+### What's Changed
+
+* feat: use internal venv for dependency management by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/9
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v1.0.2...v2.0.0
+
 ## v1.0.2 - 2024-12-17
 
 ### What's Changed
