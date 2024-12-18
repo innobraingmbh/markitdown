@@ -48,7 +48,7 @@
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "post-update-cmd": [
+        "setup-python-env": [
             "./setup-python-env.sh"
         ],
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
