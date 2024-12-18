@@ -11,7 +11,8 @@ return [
 
     /*
      * Use this to set the path to the markitdown executable. If not set,
-     * the binary will be searched in the PATH.
+     * the binary will be searched in the PATH. Will be ignored
+     * if use_venv_package is set to true.
      */
     'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
 
