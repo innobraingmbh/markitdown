@@ -48,9 +48,6 @@
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "post-install-cmd": [
-            "./setup-python-env.sh"
-        ],
         "post-update-cmd": [
             "./setup-python-env.sh"
         ],
