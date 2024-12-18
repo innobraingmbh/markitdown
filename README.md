@@ -21,7 +21,7 @@ composer require innobrain/markitdown
 php artisan vendor:publish --tag="markitdown-config"
 ```
 
-3. Run the installation command:
+3. Run the installation command if you want the package to manage your `markitdown` installation:
 
 ```bash
 php artisan markitdown:install
@@ -34,7 +34,7 @@ This will:
 
 ### Alternative Installation Methods
 
-If you prefer not to use the built-in virtual environment, you can disable it in your `.env` file:
+If you prefer not to use the built-in virtual environment, you can disable it in your `.env` file or in the config:
 
 ```bash
 MARKITDOWN_USE_VENV_PACKAGE=false
@@ -93,7 +93,8 @@ return [
 
     /*
      * Use this to set the path to the markitdown executable. If not set,
-     * the binary will be searched in the PATH.
+     * the binary will be searched in the PATH. Will be ignored
+     * if use_venv_package is set to true.
      */
     'executable' => env('MARKITDOWN_EXECUTABLE', 'markitdown'),
 
