@@ -74,5 +74,8 @@ jobs:
           # for windows releases. Defaults to "static"
           linking-type: static
 
+      - name: venv setup
+        run: ./setup-python-env.sh
+
       - name: Execute tests
         run: vendor/bin/pest --ci
