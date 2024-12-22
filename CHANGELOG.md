@@ -2,6 +2,14 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.0.0 - 2024-12-22
+
+### What's Changed
+
+* feat!: use pyman & use php in venv setup script by @kauffinger in https://github.com/innobraingmbh/markitdown/pull/10
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v2.0.0...v3.0.0
+
 ## v2.0.0 - 2024-12-18
 
 ### What's Changed
