@@ -1,1 +1,1 @@
-markitdown==0.0.1a2
+markitdown==0.0.1a3

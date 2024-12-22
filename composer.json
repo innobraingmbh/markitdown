@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.3",
         "illuminate/contracts": "^10.0||^11.0",
+        "kauffinger/pyman": "^0.0.2",
         "spatie/laravel-package-tools": "^1.16",
         "spatie/temporary-directory": "^2.2"
     },
@@ -49,7 +50,7 @@
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
         "setup-python-env": [
-            "./setup-python-env.sh"
+            "@php vendor/bin/testbench markitdown:install"
         ],
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
