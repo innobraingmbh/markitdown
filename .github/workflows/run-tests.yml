@@ -75,7 +75,7 @@ jobs:
           linking-type: static
 
       - name: venv setup
-        run: ./setup-python-env.sh
+        run: vendor/bin/testbench markitdown:install
 
       - name: Execute tests
         run: vendor/bin/pest --ci
