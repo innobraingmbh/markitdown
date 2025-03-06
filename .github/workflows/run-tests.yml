@@ -16,10 +16,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
-        php: [8.3]
-        laravel: [11.*]
-        stability: [prefer-lowest, prefer-stable]
+        os: [ ubuntu-latest ]
+        php: [ 8.3 ]
+        laravel: [ 11.* ]
+        stability: [ prefer-lowest, prefer-stable ]
         include:
           - laravel: 11.*
             testbench: 9.*
@@ -56,7 +56,7 @@ jobs:
           python-version: 3.13
 
       - name: Install markitdown
-        run: pipx install markitdown
+        run: pipx install markitdown==0.0.1
 
       - uses: FedericoCarboni/setup-ffmpeg@v3
         id: setup-ffmpeg
