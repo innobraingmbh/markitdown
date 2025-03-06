@@ -55,7 +55,7 @@ it('throws exception when venv directory is missing', function (): void {
     }
 
     try {
-        expect(fn (): \Innobrain\Markitdown\Markitdown => new Innobrain\Markitdown\Markitdown)
+        expect(fn (): Innobrain\Markitdown\Markitdown => new Innobrain\Markitdown\Markitdown)
             ->toThrow(MarkitdownException::class, 'The path to the python script is invalid');
     } finally {
         // Ensure cleanup happens even if test fails
@@ -75,7 +75,7 @@ it('throws exception when markitdown executable is missing from venv', function 
     }
 
     try {
-        expect(fn (): \Innobrain\Markitdown\Markitdown => new Innobrain\Markitdown\Markitdown)
+        expect(fn (): Innobrain\Markitdown\Markitdown => new Innobrain\Markitdown\Markitdown)
             ->toThrow(MarkitdownException::class, 'The path to the python script is invalid');
     } finally {
         // Ensure cleanup happens even if test fails
