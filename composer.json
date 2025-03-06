@@ -23,6 +23,7 @@
         "spatie/temporary-directory": "^2.2"
     },
     "require-dev": {
+        "driftingly/rector-laravel": "^2.0",
         "larastan/larastan": "^3",
         "laravel/pint": "^1.14",
         "nunomaduro/collision": "^8.1.1||^7.10.0",
