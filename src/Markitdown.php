@@ -48,9 +48,7 @@ class Markitdown
             ->command([$this->executable, $filePath])
             ->run();
 
-        if (! $processResult->successful()) {
-            throw MarkitdownException::processFailed($this->executable, $processResult->errorOutput());
-        }
+        throw_unless($processResult->successful(), MarkitdownException::processFailed($this->executable, $processResult->errorOutput()));
 
         return $processResult->output();
     }
@@ -96,9 +94,7 @@ class Markitdown
         if (Config::boolean('markitdown.use_venv_package')) {
             $path = realpath(__DIR__.'/../python/venv/bin/markitdown');
 
-            if ($path === false) {
-                throw new MarkitdownException('The path to the python script is invalid');
-            }
+            throw_if($path === false, MarkitdownException::class, 'The path to the python script is invalid');
 
             return $path;
         }
