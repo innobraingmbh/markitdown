@@ -2,6 +2,12 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.1.1 - 2025-04-15
+
+* allow laravel 12
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.1.0...v3.1.1
+
 ## v3.1.0 - 2025-03-06
 
 ### What's Changed
