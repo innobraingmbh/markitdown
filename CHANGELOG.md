@@ -2,6 +2,16 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.2.0 - 2025-09-16
+
+### What's Changed
+
+* chore(deps): bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/15
+* chore(deps): bump aglipanci/laravel-pint-action from 2.5 to 2.6 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/19
+* feat(deps): bump to markitdown v0.1.3
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.1.2...v3.2.0
+
 ## v3.1.2 - 2025-04-15
 
 * chore: bump pyman
