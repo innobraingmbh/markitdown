@@ -2,6 +2,13 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.3.1 - 2025-09-25
+
+* chore: add docblock to facade
+* fix: ensure only strings can be passed as filepaths
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.3.0...v3.3.1
+
 ## v3.3.0 - 2025-09-25
 
 ### What's Changed
