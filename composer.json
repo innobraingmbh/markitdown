@@ -38,8 +38,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Innobrain\\Markitdown\\": "src/",
-            "Innobrain\\Markitdown\\Database\\Factories\\": "database/factories/"
+            "Innobrain\\Markitdown\\": "src/"
         }
     },
     "autoload-dev": {

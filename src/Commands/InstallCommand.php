@@ -6,6 +6,7 @@ namespace Innobrain\Markitdown\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Process\Factory;
+use Illuminate\Support\Facades\Config;
 use Kauffinger\Pyman\Exceptions\PymanException;
 use Kauffinger\Pyman\PythonEnvironmentManager;
 
@@ -112,6 +113,12 @@ class InstallCommand extends Command
         }
 
         $this->components->info('Installing or updating python environment...');
+
+        // Generate requirements.txt based on configuration
+        if (! $this->generateRequirements($pythonPath)) {
+            return self::FAILURE;
+        }
+
         $pythonEnvironmentManager = new PythonEnvironmentManager($pythonPath, app(Factory::class));
 
         try {
@@ -125,5 +132,34 @@ class InstallCommand extends Command
         $this->components->info('Markitdown installed successfully!');
 
         return self::SUCCESS;
+    }
+
+    /**
+     * Generate requirements.txt based on package_extras configuration
+     */
+    private function generateRequirements(string $pythonPath): bool
+    {
+        $packageVersion = Config::string('markitdown.package_version', '0.1.3');
+        $packageExtras = Config::string('markitdown.package_extras', 'all');
+        $requirementsPath = $pythonPath.'/requirements.txt';
+
+        $packageSpec = sprintf('markitdown[%s]==%s', $packageExtras, $packageVersion);
+
+        if ($packageExtras === '') {
+            $packageSpec = 'markitdown=='.$packageVersion;
+        }
+
+        // Write the requirements file
+        $content = $packageSpec."\n";
+
+        if (file_put_contents($requirementsPath, $content) === false) {
+            $this->components->error('Failed to write requirements.txt');
+
+            return false;
+        }
+
+        $this->components->info('Generated requirements.txt with: '.$packageSpec);
+
+        return true;
     }
 }

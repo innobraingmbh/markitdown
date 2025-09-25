@@ -35,4 +35,21 @@ return [
      * by the web server. Defaults to storage/app/private/markitdown_tmp
      */
     'temporary_directory' => env('MARKITDOWN_TEMPORARY_DIRECTORY', storage_path('app/private/markitdown_tmp')),
+
+    /*
+     * The version of the markitdown Python package to install.
+     * This should match the version tested with this package.
+     */
+    'package_version' => '0.1.3',
+
+    /*
+     * Specify which markitdown package extras to install.
+     * Available extras: 'all', 'pdf', 'docx', 'pptx', 'xls', 'xlsx',
+     * 'audio-transcription', 'youtube-transcription', 'az-doc-intel', 'outlook'
+     *
+     * Use 'all' to install all available extras (default)
+     * Use a string for extras: 'pdf,xslx'
+     * Leave empty for base package only (no extras)
+     */
+    'package_extras' => env('MARKITDOWN_PACKAGE_EXTRAS', 'all'),
 ];
