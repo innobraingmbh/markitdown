@@ -18,6 +18,12 @@ class MarkitdownCommand extends Command
     {
         $filename = $this->argument('filename');
 
+        if (! is_string($filename) || $filename === '') {
+            $this->error('Invalid filename provided.');
+
+            return self::FAILURE;
+        }
+
         try {
             $output = Markitdown::convert($filename);
             /* @phpstan-ignore catch.neverThrown */
