@@ -20,88 +20,8 @@ class InstallCommand extends Command
     {
         $this->components->info('Installing Markitdown...');
 
-        // Get the path to the user's composer.json
-        $composerPath = $this->getLaravel()->basePath('composer.json');
-
-        if (! file_exists($composerPath)) {
-            $this->components->error('composer.json not found in project root.');
-
+        if (! $this->injectIntoComposerJson()) {
             return self::FAILURE;
-        }
-
-        // Read composer.json
-        $composerJson = file_get_contents($composerPath);
-
-        if ($composerJson === false) {
-            $this->components->error('Failed to read composer.json.');
-
-            return self::FAILURE;
-        }
-
-        /** @var mixed $composer */
-        $composer = json_decode($composerJson, true);
-
-        if (! is_array($composer)) {
-            $this->components->error('Invalid composer.json format.');
-
-            return self::FAILURE;
-        }
-
-        /** @var array<string, mixed> $composer */
-
-        // Initialize scripts array if it doesn't exist
-        if (! isset($composer['scripts'])) {
-            $composer['scripts'] = [];
-        }
-
-        /** @var array<string, array<string, mixed>> $composer */
-
-        // Add our script to the project's composer.json scripts
-        $script = '@php artisan markitdown:install';
-        $scriptAdded = false;
-
-        // Add to post-autoload-dump
-        if (! isset($composer['scripts']['post-autoload-dump'])) {
-            $composer['scripts']['post-autoload-dump'] = [];
-        }
-
-        /** @var array<string, array<int|string, string|array<string>>> $composer */
-
-        // Ensure post-autoload-dump is an array
-        if (! is_array($composer['scripts']['post-autoload-dump'])) {
-            $composer['scripts']['post-autoload-dump'] = [$composer['scripts']['post-autoload-dump']];
-        }
-
-        if (! in_array($script, $composer['scripts']['post-autoload-dump'], true)) {
-            $composer['scripts']['post-autoload-dump'][] = $script;
-            $scriptAdded = true;
-        }
-
-        if ($scriptAdded) {
-            // Write back to composer.json with proper formatting
-            $encodedJson = json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-
-            if ($encodedJson === false) {
-                $this->components->error('Failed to encode composer.json.');
-
-                return self::FAILURE;
-            }
-
-            $formattedJson = str($encodedJson)
-                ->append(PHP_EOL)
-                ->replace(
-                    search: "    \"keywords\": [\n        \"laravel\",\n        \"framework\"\n    ],",
-                    replace: '    "keywords": ["laravel", "framework"],'
-                )
-                ->toString();
-
-            if (in_array(file_put_contents($composerPath, $formattedJson), [0, false], true)) {
-                $this->components->error('Failed to write to composer.json.');
-
-                return self::FAILURE;
-            }
-
-            $this->components->info('Added Markitdown setup script to composer.json');
         }
 
         $pythonPath = realpath(__DIR__.'/../../python');
@@ -159,6 +79,95 @@ class InstallCommand extends Command
         }
 
         $this->components->info('Generated requirements.txt with: '.$packageSpec);
+
+        return true;
+    }
+
+    private function injectIntoComposerJson(): bool
+    {
+        // Check if we should inject the composer script
+        $shouldInjectScript = Config::boolean('markitdown.inject_composer_script', true);
+
+        if ($shouldInjectScript) {
+            // Get the path to the user's composer.json
+            $composerPath = $this->getLaravel()->basePath('composer.json');
+
+            if (! file_exists($composerPath)) {
+                $this->components->error('composer.json not found in project root.');
+
+                return false;
+            }
+
+            // Read composer.json
+            $composerJson = file_get_contents($composerPath);
+
+            if ($composerJson === false) {
+                $this->components->error('Failed to read composer.json.');
+
+                return false;
+            }
+
+            /** @var mixed $composer */
+            $composer = json_decode($composerJson, true);
+
+            if (! is_array($composer)) {
+                $this->components->error('Invalid composer.json format.');
+
+                return false;
+            }
+
+            /** @var array<string, mixed> $composer */
+
+            // Initialize scripts array if it doesn't exist
+            if (! isset($composer['scripts'])) {
+                $composer['scripts'] = [];
+            }
+
+            /** @var array<string, array<string, mixed>> $composer */
+
+            // Add our script to the project's composer.json scripts
+            $script = '@php artisan markitdown:install';
+            $scriptAdded = false;
+
+            // Add to post-autoload-dump
+            if (! isset($composer['scripts']['post-autoload-dump'])) {
+                $composer['scripts']['post-autoload-dump'] = [];
+            }
+
+            /** @var array<string, array<int|string, string|array<string>>> $composer */
+            if (! is_array($composer['scripts']['post-autoload-dump'])) {
+                $composer['scripts']['post-autoload-dump'] = [$composer['scripts']['post-autoload-dump']];
+            }
+
+            if (! in_array($script, $composer['scripts']['post-autoload-dump'], true)) {
+                $composer['scripts']['post-autoload-dump'][] = $script;
+                $scriptAdded = true;
+            }
+
+            if ($scriptAdded) {
+                $encodedJson = json_encode($composer, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+
+                if ($encodedJson === false) {
+                    $this->components->error('Failed to encode composer.json.');
+
+                    return false;
+                }
+
+                if (in_array(file_put_contents($composerPath, $encodedJson), [0, false], true)) {
+                    $this->components->error('Failed to write to composer.json.');
+
+                    return false;
+                }
+
+                $this->components->info('Added Markitdown setup script to composer.json');
+
+                return true;
+            }
+        } else {
+            $this->components->info('Skipping composer.json injection (disabled in config)');
+
+            return true;
+        }
 
         return true;
     }

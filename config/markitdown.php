@@ -52,4 +52,11 @@ return [
      * Leave empty for base package only (no extras)
      */
     'package_extras' => env('MARKITDOWN_PACKAGE_EXTRAS', 'all'),
+
+    /*
+     * Whether to automatically inject the markitdown:install command into
+     * the composer.json post-autoload-dump scripts section.
+     * Set to false to prevent automatic injection.
+     */
+    'inject_composer_script' => env('MARKITDOWN_INJECT_COMPOSER_SCRIPT', true),
 ];
