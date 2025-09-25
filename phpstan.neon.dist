@@ -5,5 +5,3 @@ parameters:
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
-    ignoreErrors:
-        - '#Call to an undefined static method Innobrain\\Markitdown\\Facades\\Markitdown::convert\(\)#'

@@ -20,6 +20,7 @@ class MarkitdownCommand extends Command
 
         try {
             $output = Markitdown::convert($filename);
+            /* @phpstan-ignore catch.neverThrown */
         } catch (MarkitdownException $markitdownException) {
             $this->error($markitdownException->getMessage());
 
