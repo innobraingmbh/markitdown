@@ -2,6 +2,12 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.4.0 - 2025-09-25
+
+* feat: allow configurability of script injection on install
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.3.1...v3.4.0
+
 ## v3.3.1 - 2025-09-25
 
 * chore: add docblock to facade
