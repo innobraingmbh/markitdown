@@ -9,6 +9,9 @@ use Override;
 
 /**
  * @see \Innobrain\Markitdown\Markitdown
+ *
+ * @method static string convert(string $filePath)
+ * @method static string convertFile(string $content, string $extension)
  */
 class Markitdown extends Facade
 {
