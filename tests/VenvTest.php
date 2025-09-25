@@ -21,7 +21,6 @@ function getExecutablePath(Innobrain\Markitdown\Markitdown $markitdown): string
 {
     $reflection = new ReflectionClass($markitdown);
     $reflectionProperty = $reflection->getProperty('executable');
-    $reflectionProperty->setAccessible(true);
 
     return $reflectionProperty->getValue($markitdown);
 }
