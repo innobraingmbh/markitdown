@@ -2,6 +2,17 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.3.0 - 2025-09-25
+
+### What's Changed
+
+* chore(deps): bump stefanzweifel/git-auto-commit-action from 5 to 6 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/18
+* chore(deps): bump actions/checkout from 4 to 5 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/20
+* chore(deps): bump actions/setup-python from 5 to 6 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/22
+* feat: allow config of installation
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.2.0...v3.3.0
+
 ## v3.2.0 - 2025-09-16
 
 ### What's Changed
