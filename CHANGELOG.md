@@ -2,6 +2,22 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.5.0 - 2026-06-13
+
+### What's Changed
+
+* chore(deps): bump dependabot/fetch-metadata from 2.4.0 to 2.5.0 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/26
+* chore(deps-dev): update orchestra/testbench requirement from ^9.0.0||^8.22.0 to ^10.9.0 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/27
+* chore(deps): bump actions/checkout from 5 to 6 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/24
+* chore(deps): bump stefanzweifel/git-auto-commit-action from 6 to 7 by @dependabot[bot] in https://github.com/innobraingmbh/markitdown/pull/23
+* allow laravel 13 by @mohammedelkarsh in https://github.com/innobraingmbh/markitdown/pull/33
+
+### New Contributors
+
+* @mohammedelkarsh made their first contribution in https://github.com/innobraingmbh/markitdown/pull/33
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.4.0...v3.5.0
+
 ## v3.4.0 - 2025-09-25
 
 * feat: allow configurability of script injection on install
