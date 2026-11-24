@@ -2,6 +2,10 @@
 
 All notable changes to `markitdown` will be documented in this file.
 
+## v3.6.0 - 2026-11-24
+
+**Full Changelog**: https://github.com/innobraingmbh/markitdown/compare/v3.5.0...v3.6.0
+
 ## v3.5.0 - 2026-06-13
 
 ### What's Changed
