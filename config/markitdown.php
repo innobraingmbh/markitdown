@@ -40,7 +40,7 @@ return [
      * The version of the markitdown Python package to install.
      * This should match the version tested with this package.
      */
-    'package_version' => '0.1.3',
+    'package_version' => '0.1.9',
 
     /*
      * Specify which markitdown package extras to install.
